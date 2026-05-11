@@ -89,9 +89,16 @@ JobSchema.index({ status: 1 });
 // Index on createdAt — default sort order for job list
 JobSchema.index({ createdAt: -1 });
 
-// Auto-record status changes in statusHistory
+// Auto-record the initial status and every later status change.
 JobSchema.pre("save", function (next) {
-  if (this.isModified("status") && !this.isNew) {
+  if (this.isNew) {
+    if (this.statusHistory.length === 0) {
+      this.statusHistory.push({ status: this.status });
+    }
+    return next();
+  }
+
+  if (this.isModified("status")) {
     this.statusHistory.push({ status: this.status });
   }
   next();

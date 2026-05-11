@@ -1,247 +1,147 @@
 # 🚀 AI Job Application Tracker
 
-An intelligent, full-stack job application tracking platform powered by **Google Gemini AI**. Upload your resume, get AI-driven skill extraction, discover matching jobs across LinkedIn, Indeed, and Glassdoor — and track every application from one beautiful dashboard.
+<div align="center">
+
+![AI Job Tracker Banner](https://raw.githubusercontent.com/Dhpatel001/ai-job-tracker/main/docs/assets/banner.png)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Gemini AI](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://aistudio.google.com/)
+
+**The intelligent way to manage your career journey. Powered by Google Gemini AI.**
+
+[Features](#-features) • [Tech Stack](#-tech-stack) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [API](#-api-endpoints)
+
+</div>
+
+---
+
+## 🌟 Overview
+
+**AI Job Tracker** is a professional-grade, full-stack application designed to streamline the modern job search. By leveraging **Google Gemini AI**, it automates the tedious parts of tracking applications, analyzing job descriptions, and extracting insights from resumes.
+
+Gone are the days of messy spreadsheets. Welcome to a centralized, AI-enhanced command center for your career growth.
 
 ---
 
 ## ✨ Features
 
-### 📄 Smart Resume Parsing
-- Upload your PDF resume and let Gemini AI extract your **skills**, **experience**, **preferred roles**, and optimized **search queries** automatically
-- Supports drag-and-drop upload with real-time analysis feedback
+### 📄 Intelligent Resume Parsing
+*   **Automated Extraction**: Upload your PDF resume; Gemini extracts skills, experience, and target roles.
+*   **Search Optimization**: Generates optimized search queries based on your professional profile.
+*   **Live Feedback**: Real-time analysis with visual feedback during the upload process.
 
-### 🔍 AI-Powered Job Search
-- Searches across **LinkedIn, Indeed, Glassdoor**, and more via the JSearch API
-- Filters by location, remote-only, employment type, and posting date
-- De-duplicates results from multiple search queries
-- One-click **"Track"** to save any discovered job to your tracker
+### 🔍 Cross-Platform AI Search
+*   **Unified Results**: Aggregate job postings from **LinkedIn, Indeed, and Glassdoor** via the JSearch API.
+*   **Smart Filtering**: Advanced filters for location, remote status, and employment type.
+*   **One-Click Tracking**: Instantly save jobs from search results to your personal dashboard.
 
-### 📊 Campaign Dashboard
-- At-a-glance stats: Applied, Interviews, Offers, Rejected
-- Clickable status cards to filter jobs instantly
-- Real-time search across job titles and companies
-- Animated, responsive layout with Framer Motion
+### 📊 Professional Dashboard
+*   **Visual Analytics**: Track your progress with animated status cards (Applied, Interviews, Offers, Rejections).
+*   **Instant Filtering**: Click any metric to filter your job list immediately.
+*   **Search & Sort**: Find specific applications by company or title with ultra-fast client-side filtering.
 
-### 🤖 Job Description Analysis
-- Paste any job description and Gemini extracts:
-  - **Required Skills** — technical and soft skills
-  - **Experience Level** — years and type of experience
-  - **Key Responsibilities** — summarized duties
-  - **Red Flags** — unpaid trials, missing salary, toxic language
-- Auto-saves analysis results to the job record
-
-### 🛡️ Production-Ready Backend
-- **Helmet** security headers + strict **CORS** policy
-- **Rate limiting** to prevent API abuse
-- **Zod** schema validation for all environment variables
-- **Graceful shutdown** with proper DB cleanup
-- Structured error handling with consistent API responses
+### 🤖 Deep Job Analysis
+*   **Skill Gap Analysis**: Extract required skills from any job description and compare them to your profile.
+*   **Risk Detection**: Automatically identify "Red Flags" like unpaid trials or toxic language.
+*   **Responsibility Breakdown**: Summarizes complex job descriptions into actionable bullet points.
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Purpose |
-|---|---|
-| **React 18** | UI framework |
-| **Vite** | Build tool & dev server |
-| **React Router v6** | Client-side routing |
-| **Zustand** | Lightweight state management |
-| **Framer Motion** | Animations & transitions |
-| **Tailwind CSS** | Utility-first styling |
-| **Lucide React** | Icon library |
-| **Axios** | HTTP client |
+- **Framework**: React 18 with Vite for lightning-fast builds.
+- **Styling**: Tailwind CSS for a responsive, modern UI.
+- **State Management**: Zustand (lightweight and performant).
+- **Animations**: Framer Motion for premium-feel transitions.
+- **Icons**: Lucide React.
 
 ### Backend
-| Technology | Purpose |
-|---|---|
-| **Node.js 18+** | Runtime |
-| **Express** | Web framework |
-| **MongoDB + Mongoose** | Database & ODM |
-| **Google Gemini AI** | Resume analysis & job description parsing |
-| **JSearch API** | Multi-platform job search (via RapidAPI) |
-| **pdf-parse v2** | PDF text extraction |
-| **Zod** | Environment & request validation |
-| **Helmet** | Security headers |
-| **Jest + Supertest** | Testing |
+- **Runtime**: Node.js 18+.
+- **Framework**: Express.js with a clean service-oriented architecture.
+- **Database**: MongoDB with Mongoose for structured data modeling.
+- **AI Engine**: Google Generative AI (Gemini 1.5 Pro/Flash).
+- **Security**: Helmet, CORS, and Express Rate Limit.
+- **Validation**: Zod for robust environment and request schema validation.
 
 ---
 
-## 📁 Project Structure
+## 🏗️ Architecture
 
+The project follows a modular, scalable architecture designed for reliability and maintainability.
+
+```mermaid
+graph TD
+    A[Client - React] -->|REST API| B[Server - Express]
+    B --> C[Gemini AI Service]
+    B --> D[JSearch API]
+    B --> E[MongoDB Atlas]
+    C -->|Analyze| F[Resume / Job Description]
+    B --> G[PDF Parse Service]
 ```
-ai-job-tracker/
-├── client/                     # React frontend
-│   ├── src/
-│   │   ├── components/         # Reusable UI components
-│   │   │   ├── layout/         # Layout wrapper
-│   │   │   └── ui/             # Toast notifications
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── pages/              # Route pages
-│   │   │   ├── Dashboard.jsx   # Main dashboard with stats & job list
-│   │   │   ├── AddJob.jsx      # Add new job application
-│   │   │   ├── JobDetail.jsx   # Job detail view + AI analysis
-│   │   │   ├── ResumeSearch.jsx # Resume upload + job search flow
-│   │   │   └── NotFound.jsx    # 404 page
-│   │   ├── services/           # API client functions
-│   │   ├── store/              # Zustand state stores
-│   │   ├── styles/             # Global CSS, tokens, animations
-│   │   └── utils/              # Helpers (date formatting, etc.)
-│   └── vite.config.js
-│
-├── server/                     # Express backend
-│   ├── src/
-│   │   ├── config/             # DB connection, env validation, constants
-│   │   ├── controllers/        # Request handlers
-│   │   ├── middleware/         # Error handling, rate limiting, logging
-│   │   ├── models/             # Mongoose schemas
-│   │   ├── routes/             # API route definitions
-│   │   ├── services/           # Business logic
-│   │   │   ├── gemini.service.js    # Job description AI analysis
-│   │   │   ├── resume.service.js    # Resume parsing + AI extraction
-│   │   │   ├── jobSearch.service.js # JSearch API integration
-│   │   │   └── job.service.js       # CRUD operations
-│   │   └── validators/        # Zod request schemas
-│   └── tests/                  # Unit & integration tests
-│
-└── README.md
-```
+
+### Key Highlights:
+- **Resilient AI Calls**: Implements exponential backoff and 30s timeouts for Gemini API calls.
+- **Layered Design**: Clear separation between Routes, Controllers, Services, and Models.
+- **Security First**: Production-ready middleware for rate limiting and header security.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+- Node.js ≥ 18.0.0
+- MongoDB (Local or Atlas)
+- [Google Gemini API Key](https://aistudio.google.com/apikey)
+- [RapidAPI Key (JSearch)](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch)
 
-- **Node.js** ≥ 18.0.0
-- **MongoDB** (local instance or [MongoDB Atlas](https://www.mongodb.com/atlas))
-- **Google Gemini API Key** ([Get one here](https://aistudio.google.com/apikey))
-- **RapidAPI Key** for JSearch ([Subscribe here](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch))
+### Installation
 
-### 1. Clone the repository
+1.  **Clone the Repo**
+    ```bash
+    git clone https://github.com/Dhpatel001/ai-job-tracker.git
+    cd ai-job-tracker
+    ```
 
-```bash
-git clone https://github.com/YOUR_USERNAME/ai-job-tracker.git
-cd ai-job-tracker
-```
+2.  **Server Setup**
+    ```bash
+    cd server
+    npm install
+    # Create .env with MONGO_URI, GEMINI_API_KEY, RAPIDAPI_KEY
+    npm run dev
+    ```
 
-### 2. Set up the backend
-
-```bash
-cd server
-npm install
-```
-
-Create a `.env` file in the `server/` directory:
-
-```env
-PORT=5000
-NODE_ENV=development
-MONGO_URI=mongodb://localhost:27017/ai-job-tracker
-ALLOWED_ORIGINS=http://localhost:5173
-GEMINI_API_KEY=your_gemini_api_key_here
-RAPIDAPI_KEY=your_rapidapi_key_here
-```
-
-### 3. Set up the frontend
-
-```bash
-cd ../client
-npm install
-```
-
-### 4. Run the application
-
-**Terminal 1 — Start the backend:**
-```bash
-cd server
-npm run dev
-```
-
-**Terminal 2 — Start the frontend:**
-```bash
-cd client
-npm run dev
-```
-
-The app will be available at **http://localhost:5173**
+3.  **Client Setup**
+    ```bash
+    cd ../client
+    npm install
+    npm run dev
+    ```
 
 ---
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Health check |
-| `GET` | `/api/jobs` | List all jobs (with optional `?status=` filter) |
-| `GET` | `/api/jobs/stats` | Get job count by status |
-| `GET` | `/api/jobs/:id` | Get a single job |
-| `POST` | `/api/jobs` | Create a new job |
-| `PUT` | `/api/jobs/:id` | Update a job |
-| `DELETE` | `/api/jobs/:id` | Delete a job |
-| `POST` | `/api/analyze` | Analyze a job description with Gemini AI |
-| `POST` | `/api/resume/upload` | Upload & analyze a PDF resume |
-| `POST` | `/api/resume/search` | Search jobs based on resume analysis |
-
----
-
-## 🧪 Running Tests
-
-```bash
-cd server
-npm test
-```
-
-Tests include:
-- **Unit tests** for Gemini service and job service
-- **Integration tests** for job API routes
-
----
-
-## 🔧 Environment Variables
-
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `PORT` | No | `5000` | Server port |
-| `NODE_ENV` | No | `development` | Environment mode |
-| `MONGO_URI` | **Yes** | — | MongoDB connection string |
-| `ALLOWED_ORIGINS` | No | `http://localhost:5173` | Comma-separated CORS origins |
-| `GEMINI_API_KEY` | No* | — | Google Gemini API key |
-| `RAPIDAPI_KEY` | No* | — | RapidAPI key for JSearch |
-
-> *Required for AI analysis and job search features to work.
-
----
-
-## 📸 Pages
-
-| Page | Route | Description |
-|---|---|---|
-| **Dashboard** | `/` | Stats overview, job list with search & filters |
-| **Add Job** | `/add` | Form to add a new job application |
-| **Job Detail** | `/job/:id` | Full job view with AI analysis trigger |
-| **Resume Search** | `/resume-search` | 3-step flow: Upload → Review Skills → Browse Results |
-
----
-
-## 🏗️ Architecture Highlights
-
-- **Layered backend** — Routes → Controllers → Services → Models
-- **Zod validation** at startup ensures no missing env vars
-- **Gemini retry with exponential backoff** (3 attempts, 30s timeout)
-- **Rate limiting** on all `/api` routes
-- **Status history tracking** via Mongoose pre-save hooks
-- **Client-side search + server-side filtering** for responsive UX
+| Method | Endpoint | Purpose |
+| :--- | :--- | :--- |
+| `POST` | `/api/resume/upload` | Upload PDF and extract skills via AI |
+| `POST` | `/api/analyze` | Deep-dive analysis of a job description |
+| `GET` | `/api/jobs` | Retrieve all tracked applications |
+| `POST` | `/api/jobs` | Manually add a new job application |
+| `GET` | `/api/jobs/stats` | Get application metrics for dashboard |
 
 ---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
 <p align="center">
-  Built with ❤️ using React, Express, MongoDB, and Google Gemini AI
+  Built with ❤️ for the Developer Community
 </p>

@@ -7,7 +7,8 @@ import { Job } from "../models/Job.model.js";
  * @returns {Object} The created job document
  */
 export const createJob = async (data) => {
-  const job = await Job.create(data);
+  const job = new Job(data);
+  await job.save();
   return job;
 };
 
@@ -86,10 +87,7 @@ export const getJobById = async (id) => {
  * runValidators ensures Mongoose schema rules still apply on update.
  */
 export const updateJob = async (id, data) => {
-  const job = await Job.findByIdAndUpdate(id, data, {
-    new: true,
-    runValidators: true,
-  });
+  const job = await Job.findById(id);
 
   if (!job) {
     const err = new Error("Job not found");
@@ -97,6 +95,9 @@ export const updateJob = async (id, data) => {
     err.code = "JOB_NOT_FOUND";
     throw err;
   }
+
+  Object.assign(job, data);
+  await job.save();
 
   return job;
 };
@@ -142,3 +143,4 @@ export const getJobStats = async () => {
 
   return stats;
 };
+
